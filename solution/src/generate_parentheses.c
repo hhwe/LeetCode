@@ -1,3 +1,5 @@
+#include "solution.h"
+
 int IsValid(char *s, int size)
 {
     int a = 0;
@@ -42,7 +44,7 @@ void Recursion(int n, char *s, int nn, char **ss, int *size)
 char **generateParenthesis(int n, int *returnSize)
 {
     *returnSize = 0;
-    if (n < 2)
+    if (n < 0)
     {
         return NULL;
     }

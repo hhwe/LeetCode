@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "bulid shell",
+            "type": "sh",
+            "request": "launch",
+            "program": "${fileDirname}/a.out",
+            "cwd": "${workspaceFolder}",
+        },
+        {
             "name": "g++ - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
