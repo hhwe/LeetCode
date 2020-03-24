@@ -36,6 +36,22 @@
             "options": {
                 "cwd": "/usr/bin"
             }
+        },
+        {
+            "type": "shell",
+            "label": "build solution file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                // "-gtest",
+                // "-lpthread",
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            }
         }
     ]
 }

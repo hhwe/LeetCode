@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "bulid shell",
-            "type": "sh",
+            // "type": "sh",
             "request": "launch",
             "program": "${fileDirname}/a.out",
             "cwd": "${workspaceFolder}",

@@ -2,7 +2,10 @@
     "files.associations": {
         "tuple": "cpp",
         "functional": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "solution.h": "c",
+        "common.h": "c"
     },
-    "files.autoSave": "onFocusChange"
+    "files.autoSave": "onFocusChange",
+    "remote.WSL.fileWatcher.polling": true
 }

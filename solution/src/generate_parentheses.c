@@ -1,4 +1,7 @@
-#include "solution.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
 
 int IsValid(char *s, int size)
 {
@@ -41,6 +44,29 @@ void Recursion(int n, char *s, int nn, char **ss, int *size)
     return;
 }
 
+void Backtrack(int n, char *s, int left, int right, char **ss, int *size)
+{
+    if (strlen(s) == 2 * n)
+    {
+        s[2 * n] = '\0';
+        memcpy(ss[*size], s, sizeof(char) * (2 * n + 1));
+        (*size)++;
+        return;
+    }
+
+    if (left < n)
+    {
+        s[left + right] = '(';
+        Backtrack(n, s, left + 1, right, ss, size);
+    }
+
+    if (right < n)
+    {
+        s[left + right] = '(';
+        Backtrack(n, s, left, right + 1, ss, size);
+    }
+}
+
 char **generateParenthesis(int n, int *returnSize)
 {
     *returnSize = 0;
@@ -48,12 +74,21 @@ char **generateParenthesis(int n, int *returnSize)
     {
         return NULL;
     }
-    char **ret = (char **)malloc(sizeof(char *) * n * n);
-    for (int i = 0; i < n * n; i++)
+    int size = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        size *= i;
+    }
+
+    char **ret = (char **)malloc(sizeof(char *) * size);
+    for (int i = 0; i < size; i++)
     {
         ret[i] = (char *)malloc(sizeof(char) * (2 * n + 1));
     }
     char *s = (char *)malloc(sizeof(char) * (2 * n + 1));
     Recursion(2 * n, s, 0, ret, returnSize);
+
+    Backtrack(n, s, 0, 0, ret, 0);
+
     return ret;
 }
