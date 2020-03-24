@@ -43,15 +43,81 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-g",
+                "-c",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
-                // "-gtest",
-                // "-lpthread",
+                "${workspaceFolder}/build/solution.o",
+                "-I",
+                "${workspaceFolder}/solution/include/",
             ],
             "options": {
-                "cwd": "/usr/bin"
+                "cwd": "${workspaceFolder}"
             }
-        }
+        },
+        {
+            "type": "shell",
+            "label": "build test file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "-c",
+                "${workspaceFolder}/test/src/${fileBasename}",
+                "-o",
+                "${workspaceFolder}/build/test.o",
+                "-I",
+                "${workspaceFolder}/",
+                "-I",
+                "${workspaceFolder}/solutin/include/",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "shell",
+            "label": "build main file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "-c",
+                "${workspaceFolder}/gtest/main/main.cpp",
+                "-o",
+                "${workspaceFolder}/build/main.o",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "shell",
+            "label": "build excutable file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "${workspaceFolder}/build/*.o",
+                "-o",
+                "${workspaceFolder}/build/${fileBasenameNoExtension}",
+                "-I./include",
+                "-L./gtest/lib",
+                "-gtest",
+                "-lpthread",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "build solution file",
+                "build test file",
+                "build main file",
+            ],
+        },
+        {
+            "type": "shell",
+            "label": "gtest",
+            "command": "sh",
+            "args": [
+                "${workspaceFolder}/build.sh",
+            ],
+        },
     ]
 }
