@@ -9,7 +9,8 @@
         "stdio.h": "c",
         "math.h": "c",
         "string.h": "c",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "cmath": "cpp"
     },
     "files.autoSave": "onFocusChange",
     "remote.WSL.fileWatcher.polling": true,
