@@ -1,6 +1,6 @@
-g++ -o ./build/solution.o -c ./solution/src/generate_parentheses.cpp  -I ./solution/include/
+g++ -o ./build/solution.o -c ./solution/src/$1  -I ./solution/include/
 
-g++ -o ./build/test.o -c ./test/src/generate_parentheses.cpp -I ./ -I ./solution/include/
+g++ -o ./build/test.o -c ./test/src/$1 -I ./test/include/ -I ./solution/include/
 
 g++ -o ./build/main.o -c ./gtest/main/main.cpp -I ./
 

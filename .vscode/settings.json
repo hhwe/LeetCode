@@ -7,5 +7,6 @@
         "common.h": "c"
     },
     "files.autoSave": "onFocusChange",
-    "remote.WSL.fileWatcher.polling": true
+    "remote.WSL.fileWatcher.polling": true,
+    "cmake.configureOnOpen": true
 }
