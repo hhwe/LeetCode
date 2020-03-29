@@ -1,9 +1,9 @@
 #include "test.h"
 
-using namespace std;
 
 TEST(test_generate_parenthesis, generateParenthesis001)
 {
+        cout << "1" << endl;
     int size = 1;
     string a[size] = {
         "()",
@@ -11,8 +11,9 @@ TEST(test_generate_parenthesis, generateParenthesis001)
 
     int n = 1;
     int returnSize;
+    cout << "1" << endl;
     char **ret = generateParenthesis(n, &returnSize);
-
+cout << "1" << endl;
     ASSERT_EQ(size, returnSize);
     for (int i = 0; i < size; i++)
     {

@@ -8,7 +8,8 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "math.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "iostream": "cpp"
     },
     "files.autoSave": "onFocusChange",
     "remote.WSL.fileWatcher.polling": true,

@@ -88,7 +88,7 @@ char **generateParenthesis(int n, int *returnSize)
     char *s = (char *)malloc(sizeof(char) * (2 * n + 1));
     Recursion(2 * n, s, 0, ret, returnSize);
 
-    Backtrack(n, s, 0, 0, ret, 0);
+    Backtrack(n, s, 0, 0, ret, returnSize);
 
     return ret;
 }
