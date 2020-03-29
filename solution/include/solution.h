@@ -5,13 +5,11 @@
 
 #include "common.h"
 
-
 struct ListNode
 {
     int val;
     struct ListNode *next;
 };
-
 
 int *twoSum(int *nums, int numsSize, int target);
 char **generateParenthesis(int n, int *returnSize);

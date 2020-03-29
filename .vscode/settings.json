@@ -4,7 +4,11 @@
         "functional": "cpp",
         "string": "cpp",
         "solution.h": "c",
-        "common.h": "c"
+        "common.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "math.h": "c",
+        "string.h": "c"
     },
     "files.autoSave": "onFocusChange",
     "remote.WSL.fileWatcher.polling": true,

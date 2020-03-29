@@ -1,6 +1,4 @@
-#include "gtest/gtest.h"
-#include "solution.h"
-#include <string>
+#include "test.h"
 
 using namespace std;
 

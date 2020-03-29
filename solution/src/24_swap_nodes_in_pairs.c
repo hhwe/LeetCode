@@ -15,25 +15,23 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
  * Definition for singly-linked list.
- * struct ListNode {
+ * ListNode{
  *     int val;
- *     struct ListNode *next;
+ *     ListNode*next;
  * };
  */
-#include <stdio.h>
+
 #include "solution.h"
 
-
-
-struct ListNode *swapPairs(struct ListNode *head)
+ListNode *swapPairs(ListNode *head)
 {
     if (head == NULL)
     {
         return NULL;
     }
-    struct ListNode *p = head;
-    struct ListNode *q;
-    struct ListNode *prev = p;
+    ListNode *p = head;
+    ListNode *q;
+    ListNode *prev = p;
     if (head->next != NULL)
     {
         q = head->next;
