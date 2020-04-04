@@ -31,14 +31,14 @@ bool btreeSearchLeft(int *nums, int p, int q, int target, int *pos)
         }
         return false;
     }
-    int mid = (q - p) / 2;
-    if (nums[mid] <= target)
+    int mid = (q + p) / 2;
+    if (nums[mid] >= target)
     {
-        btreeSearchLeft(nums, p, mid, target, pos);
+        return btreeSearchLeft(nums, p, mid, target, pos);
     }
     else
     {
-        btreeSearchLeft(nums, mid, q, target, pos);
+        return btreeSearchLeft(nums, mid + 1, q, target, pos);
     }
 }
 
@@ -53,14 +53,14 @@ bool btreeSearchRight(int *nums, int p, int q, int target, int *pos)
         }
         return false;
     }
-    int mid = (q - p) / 2;
-    if (nums[mid] < target)
+    int mid = (q + p) / 2 + 1;
+    if (nums[mid] <= target)
     {
-        return btreeSearchRight(nums, p, mid, target, pos);
+        return btreeSearchRight(nums, mid, q, target, pos);
     }
     else
     {
-        return btreeSearchRight(nums, mid, q, target, pos);
+        return btreeSearchRight(nums, p, mid - 1, target, pos);
     }
 }
 
@@ -73,16 +73,33 @@ int *searchRange(int *nums, int numsSize, int target, int *returnSize)
     {
         return NULL;
     }
-    if (numsSize <= 1)
-    {
-        *returnSize = 0;
-        return NULL;
-    }
 
     int left;
     int right;
     int *ret = (int *)malloc(sizeof(int) * 2);
-    btreeSearchLeft(nums, 0, numsSize - 1, target, &left) ? ret[0] = left : ret[0] = -1;
-    btreeSearchRight(nums, 0, numsSize - 1, target, &right) ? ret[1] = right : ret[1] = -1;
+    *returnSize = 2;
+    if (numsSize < 1)
+    {
+        *returnSize = 2;
+        ret[0] = -1;
+        ret[1] = -1;
+        return ret;
+    }
+    if (btreeSearchLeft(nums, 0, numsSize - 1, target, &left))
+    {
+        ret[0] = left;
+    }
+    else
+    {
+        ret[0] = -1;
+    }
+    if (btreeSearchRight(nums, 0, numsSize - 1, target, &right))
+    {
+        ret[1] = right;
+    }
+    else
+    {
+        ret[1] = -1;
+    }
     return ret;
 }
