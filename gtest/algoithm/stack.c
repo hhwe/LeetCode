@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define INIT_STACK_MAX_SIZE 100
+#define INIT_STACK_MAX_SIZE 3
 
 typedef int ElemType;
 
@@ -47,15 +47,15 @@ void StackFree(Stack *stack)
 
 bool StackFull(Stack *stack)
 {
-    return (stack->top = stack->base) == stack->stackSize;
+    return (stack->top - stack->base) == stack->stackSize;
 }
 
 bool StackEmpty(Stack *stack)
 {
-    return stack->top == 0;
+    return stack->top == stack->base;
 }
 
-ElemType   StackGetTop(Stack *stack)
+ElemType StackGetTop(Stack *stack)
 {
     if (StackEmpty(stack))
     {
@@ -69,15 +69,16 @@ void StackPush(Stack *stack, ElemType elem)
 {
     if (StackFull(stack))
     {
+        printf("Stack Full\r\n");
         int newStackSize = stack->stackSize * 2;
         ElemType *newBase = (ElemType *)realloc(stack->base, sizeof(ElemType) * newStackSize);
         if (!newBase)
         {
-            printf("Stack Full\r\n");
+            printf("Alloc Failed\r\n");
             exit(1);
         }
         stack->base = newBase;
-        stack->base = newStackSize;
+        stack->stackSize = newStackSize;
     }
     *stack->top = elem;
     stack->top++;
@@ -107,7 +108,6 @@ void StackShow(Stack *stack)
 int main(int argc, char const *argv[])
 {
     Stack *stack = StackInit();
-    printf("%d\n", StackGetTop(stack));
     StackPush(stack, 1);
     printf("%d\n", StackGetTop(stack));
     StackPush(stack, 2);
@@ -121,6 +121,10 @@ int main(int argc, char const *argv[])
     StackShow(stack);
     printf("%d\n", StackPop(stack));
     printf("%d\n", StackGetTop(stack));
+    StackShow(stack);
+    printf("%d\n", StackPop(stack));
+    printf("%d\n", StackPop(stack));
+    printf("%d\n", StackPop(stack));
     StackShow(stack);
     StackFree(stack);
     return 0;
