@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define INIT_STACK_MAX_SIZE 3
+#define INIT_STACK_MAX_SIZE 100
 
 typedef int ElemType;
 
@@ -10,7 +10,7 @@ typedef struct
 {
     ElemType *base;
     ElemType *top;
-    int stackSize;
+    int maxSize;
 } Stack;
 
 Stack *StackInit()
@@ -28,7 +28,7 @@ Stack *StackInit()
         exit(1);
     }
     stack->top = stack->base;
-    stack->stackSize = INIT_STACK_MAX_SIZE;
+    stack->maxSize = INIT_STACK_MAX_SIZE;
 }
 
 void StackFree(Stack *stack)
@@ -39,7 +39,7 @@ void StackFree(Stack *stack)
         {
             free(stack->base);
             stack->top = stack->base;
-            stack->stackSize = INIT_STACK_MAX_SIZE;
+            stack->maxSize = INIT_STACK_MAX_SIZE;
         }
         free(stack);
     }
@@ -47,7 +47,7 @@ void StackFree(Stack *stack)
 
 bool StackFull(Stack *stack)
 {
-    return (stack->top - stack->base) == stack->stackSize;
+    return (stack->top - stack->base) == stack->maxSize;
 }
 
 bool StackEmpty(Stack *stack)
@@ -70,7 +70,7 @@ void StackPush(Stack *stack, ElemType elem)
     if (StackFull(stack))
     {
         printf("Stack Full\r\n");
-        int newStackSize = stack->stackSize * 2;
+        int newStackSize = stack->maxSize * 2;
         ElemType *newBase = (ElemType *)realloc(stack->base, sizeof(ElemType) * newStackSize);
         if (!newBase)
         {
@@ -78,7 +78,7 @@ void StackPush(Stack *stack, ElemType elem)
             exit(1);
         }
         stack->base = newBase;
-        stack->stackSize = newStackSize;
+        stack->maxSize = newStackSize;
     }
     *stack->top = elem;
     stack->top++;
