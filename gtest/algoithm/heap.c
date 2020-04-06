@@ -1,3 +1,14 @@
+/* 
+ * 小顶堆
+ * 以上是堆的性质。下面是如何构造一个堆：
+
+ 
+
+堆的构造：数组，count表示内容大小，maxSize表示最大容量。
+堆的判空、返回大小、初始化都很简单，直接返回性质（具体看最后代码）。
+入堆：入堆需要判断他的大小，方法是：先将他放在最后面的位置（如图），然后依次和他的父亲比较，只要比父亲大，就交换。
+出堆：直接取走顶端元素（arr[1]），然后把最后的元素挪到最前面，然后把它进行下移的操作。最后把数组最后一个元素删掉，并且count - 1就完成了。
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -11,27 +22,27 @@ typedef struct
     ElemType *nodes;
     int count;
     int maxSize;
-} Heap;
+} MinHeap;
 
-Heap *HeapInit()
+MinHeap *HeapInit()
 {
-    Heap *heap = (Heap *)malloc(sizeof(Heap));
+    MinHeap *heap = (MinHeap *)malloc(sizeof(MinHeap));
     if (!heap)
     {
-        printf("Heap Initial Error\r\n");
+        printf("MinHeap Initial Error\r\n");
         exit(1);
     }
     heap->nodes = (ElemType *)malloc(sizeof(ElemType) * INIT_HEAP_MAX_SIZE);
     if (!heap->nodes)
     {
-        printf("Heap Initial Error\r\n");
+        printf("MinHeap Initial Error\r\n");
         exit(1);
     }
     heap->count = 0;
     heap->maxSize = INIT_HEAP_MAX_SIZE;
 }
 
-void HeapFree(Heap *heap)
+void HeapFree(MinHeap *heap)
 {
     if (!heap)
     {
@@ -45,31 +56,31 @@ void HeapFree(Heap *heap)
     }
 }
 
-bool HeapFull(Heap *heap)
+bool HeapFull(MinHeap *heap)
 {
     return heap->count == heap->maxSize;
 }
 
-bool HeapEmpty(Heap *heap)
+bool HeapEmpty(MinHeap *heap)
 {
     return heap->count == 0;
 }
 
-ElemType HeapGetTop(Heap *heap)
+ElemType HeapGetTop(MinHeap *heap)
 {
     if (HeapEmpty(heap))
     {
-        printf("Heap Empty\r\n");
+        printf("MinHeap Empty\r\n");
         exit(1);
     }
     return heap->nodes[heap->count - 1];
 }
 
-void HeapInsert(Heap *heap, ElemType elem)
+void HeapInsert(MinHeap *heap, ElemType elem)
 {
     if (HeapFull(heap))
     {
-        printf("Heap Full\r\n");
+        printf("MinHeap Full\r\n");
         int newHeapSize = heap->maxSize * 2;
         ElemType *newBase = (ElemType *)realloc(heap->nodes, sizeof(ElemType) * newHeapSize);
         if (!newBase)
@@ -96,11 +107,11 @@ void HeapInsert(Heap *heap, ElemType elem)
     heap->nodes[childNode] = elem;
 }
 
-ElemType HeapRemove(Heap *heap)
+ElemType HeapRemove(MinHeap *heap)
 {
     if (HeapEmpty(heap))
     {
-        printf("Heap Empty\r\n");
+        printf("MinHeap Empty\r\n");
         exit(1);
     }
     ElemType elem = heap->nodes[0];
@@ -127,7 +138,7 @@ ElemType HeapRemove(Heap *heap)
     return elem;
 }
 
-void HeapShow(Heap *heap)
+void HeapShow(MinHeap *heap)
 {
     for (int i = 0; i < heap->count; i++)
     {
@@ -136,9 +147,9 @@ void HeapShow(Heap *heap)
     printf("\r\n");
 }
 
-int main(int argc, char const *argv[])
+int TestHeap()
 {
-    Heap *heap = HeapInit();
+    MinHeap *heap = HeapInit();
     HeapInsert(heap, 1);
     printf("%d\n", HeapGetTop(heap));
     HeapInsert(heap, 2);
@@ -159,5 +170,37 @@ int main(int argc, char const *argv[])
     printf("%d\n", HeapRemove(heap));
     HeapShow(heap);
     HeapFree(heap);
+    return 0;
+}
+
+int nthUglyNumber(int n)
+{
+    MinHeap *heap = HeapInit();
+    int ret = 1;
+    HeapInsert(heap, 1);
+    for (int i = 1; i < n; i++)
+    {
+        int top = HeapGetTop(heap);
+        ret = HeapRemove(heap);
+        if (top < ret * 5)
+        {
+            HeapInsert(heap, ret * 5);
+            if (top < ret * 3)
+            {
+                HeapInsert(heap, ret * 3);
+                if (top < ret * 5)
+                {
+                    HeapInsert(heap, ret * 2);
+                }
+            }
+        }
+    }
+    HeapShow(heap);
+    return ret;
+}
+
+int main(int argc, char const *argv[])
+{
+    printf("%d\n", nthUglyNumber(10));
     return 0;
 }

@@ -12,7 +12,8 @@
         "iostream": "cpp",
         "cmath": "cpp",
         "map": "cpp",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "ostream": "cpp"
     },
     "files.autoSave": "onFocusChange",
     "remote.WSL.fileWatcher.polling": true,
