@@ -54,10 +54,13 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。 */
 
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 bool isValidSudoku(char board[][9], int boardSize, int *boardColSize)
 {
-    if (boardSize <= 0 || boardColSize <= 0) {
+    if (boardSize <= 0 || boardColSize <= 0)
+    {
         return false;
     }
     for (int i = 0; i < boardSize; i++)
@@ -66,7 +69,7 @@ bool isValidSudoku(char board[][9], int boardSize, int *boardColSize)
         int col[10] = {0};
         for (int j = 0; j < *boardColSize; j++)
         {
-            
+
             if (board[i][j] != '.')
             {
                 if (row[board[i][j] - '0'] > 0)
@@ -110,6 +113,44 @@ bool isValidSudoku(char board[][9], int boardSize, int *boardColSize)
     return true;
 }
 
+bool isValidSudoku1(char **board, int boardSize, int *boardColSize)
+{
+    int i, j, r, c, row[9], col[9], martix[9];
+    for (i = 0; i < boardSize; i++)
+    {
+        memset(row, 0, sizeof(row));
+        memset(col, 0, sizeof(col));
+        memset(martix, 0, sizeof(martix));
+        for (j = 0; j < boardColSize[i]; j++)
+        {
+            // 行
+            if (board[i][j] != '.')
+            {
+                if (row[board[i][j] - '1'] == 1)
+                    return false;
+                row[board[i][j] - '1']++;
+            }
+            // 列
+            if (board[j][i] != '.')
+            {
+                if (col[board[j][i] - '1'] == 1)
+                    return false;
+                col[board[j][i] - '1']++;
+            }
+            // 九宫格
+            r = 3 * (i / 3) + j / 3;
+            c = (i % 3) * 3 + j % 3;
+            if (board[r][c] != '.')
+            {
+                if (martix[board[r][c] - '1'] == 1)
+                    return false;
+                martix[board[r][c] - '1']++;
+            }
+        }
+    }
+    return true;
+}
+
 int main(int argc, char const *argv[])
 {
     char a[9][9] = {{'8', '3', '.', '.', '7', '.', '.', '.', '.'},
@@ -122,6 +163,12 @@ int main(int argc, char const *argv[])
                     {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
                     {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
     int b = 9;
+
     printf("%d\r\n", isValidSudoku(a, 9, &b));
+
+    char **arr = (char **)malloc(sizeof(char *) * 9);
+    for (int i = 0; i < 9; ++i)
+        arr[i] = (char *)malloc(sizeof(char) * 9);
+    printf("%d\r\n", isValidSudoku1(arr, 9, &b));
     return 0;
 }
