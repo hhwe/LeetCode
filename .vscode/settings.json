@@ -14,7 +14,13 @@
         "map": "cpp",
         "stdbool.h": "c",
         "ostream": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "*.tcc": "cpp",
+        "string_view": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "utility": "cpp",
+        "algorithm": "cpp"
     },
     "files.autoSave": "onFocusChange",
     "remote.WSL.fileWatcher.polling": true,

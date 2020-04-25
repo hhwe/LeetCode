@@ -30,6 +30,8 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
+                "-I",
+                "${workspaceFolder}/solution/include/",
                 // "-gtest",
                 // "-lpthread",
             ],
